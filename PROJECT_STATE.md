@@ -14,3 +14,10 @@
 - Existing four `songs.js` records remain byte-identical to `68099fa`. The preview restores the earlier documented rights uncertainty in `rights.js`; it does not display pending lyrics/translations or play protected recordings. Historical source notes are retained under docs.
 - PR #1 has already merged; the task's earlier rename-only/open snapshot was superseded. PR #2's separate lyric-video studio/catalogue work remains intact.
 - Checks and limitations: `docs/verification.md`. Next: owner reviews the completed preview and approves it or requests changes.
+
+
+## 25 October 2026 — Shared community entry
+
+Added the canonical dependency-free `dimau-connect.js` from Dimau Platform Standard and optional Connect entry points across this app's visitor screens. The launcher opens Sota Kece's shared communications hub for existing member-authorized groups, chat, task boards and deliberately opened external call invitations. It sends only this app's public slug and selected view; it does not forward accounts, tokens, private app records, Ops messages, camera or microphone access. Sota Kece sign-in remains separate, and existing app-specific community features are preserved.
+
+The launcher and same-origin CSS are copied byte-for-byte from the shared master; existing CSP and permissions policies are unchanged. Sota Kece is for ages 16 and over, and the launcher displays that notice before opening the hub. Syntax, entry-point wiring and public build inclusion are checked; hosted multiuser/call verification is not claimed. This is a review candidate; all existing project and revision publication holds remain in force. Next: review the central hub and this exact preview before normal release checks/publication.
