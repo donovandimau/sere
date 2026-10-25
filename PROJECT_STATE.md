@@ -1,3 +1,9 @@
+## 25 October 2026 — Audio and video call entry points
+
+Owner requested the complete shared calling rollout, including video chat. This isolated revision starts from current main and adds only the shared Connect v2 entry points: audio and video route to the Sota communications hub with an app slug and fixed call mode. App accounts, private records, page URLs and tokens are not forwarded; the launcher does not start camera/microphone capture. Existing unrelated saved revisions and holds remain untouched.
+
+Validation: canonical launcher syntax and nine DOM/URL/privacy/keyboard tests pass. Entry changes preserve prior source outside the added control. Hosted app and native two-user call verification remain with the parent rollout; no production call or publication is claimed here. Authenticated Ops continuity/lease receipts are not available to this child; no such receipt is claimed. Next: verify the exact preview and shared native call flow, then release this isolated change when the parent confirms readiness.
+
 ## 25 October 2026 — App companion installation
 
 Owner resumed the portfolio companion rollout with “do it”. Added byte-identical original Dimau Companion v1.0.1 assets and app-specific entry points from the shared platform standard. Local task guides, movable characters, appearance settings and read-aloud are available without a model provider. No account, payment, private-record or provider access is added. Open-ended AI remains disconnected unless a host explicitly supplies its existing service; held assistant pilots remain unchanged.
