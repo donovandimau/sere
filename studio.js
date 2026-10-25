@@ -12,6 +12,9 @@ let exportMessageFixed = false;
 let automaticTitle = true;
 let loadingRecording = false, recordingController;
 const renderer = new LyricRenderer($('video-preview'), audio);
+$('music-visuals').addEventListener('visualchange', event => {
+  renderer.configure({visuals: event.detail}); invalidateVideo();
+});
 const transcriber = createTranscriber({onProgress: p => {
   $('transcribe-status').textContent = typeof p === 'string' ? p : (p?.message || 'Preparing speech model…');
 }});

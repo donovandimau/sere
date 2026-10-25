@@ -16,6 +16,7 @@
 <label for="queue">Track queue</label><select id="queue"><option value="">No music loaded</option></select><p class="hint">Each track keeps its own lyrics and timing while this studio stays open.</p>
 <div class="fields"><div><label for="title">Song title</label><input id="title" maxlength="160" placeholder="Name your song"></div><div><label for="artist">Artist</label><input id="artist" maxlength="160" placeholder="Artist or performer"></div></div>
 <audio id="track" controls preload="metadata" aria-label="Your music"></audio>
+<dimau-music-visualiser id="music-visuals" for="track" export></dimau-music-visualiser>
 <p id="music-status" role="status">Choose a track to start.</p></div>
 <div class="panel"><div class="step-title"><span>02</span><h2>The words</h2></div>
 <label for="library-song">Start with a Sere song</label><select id="library-song"><option value="">Choose from the song library</option></select>
@@ -45,5 +46,5 @@
 <p id="validation" role="status"></p></div>
 </section></div>
 </main><footer>Sere · Made for the music we carry.</footer>
-<script src="songs.js"></script><script src="catalogue.js"></script><script type="module" src="studio.js"></script>
+<script src="music-visualiser.js"></script><script src="songs.js"></script><script src="catalogue.js"></script><script type="module" src="studio.js"></script>
 </body></html>

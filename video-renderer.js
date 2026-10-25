@@ -21,6 +21,7 @@ const abortError = (signal) => signal?.reason instanceof Error
   ? signal.reason : new DOMException('Video export cancelled.', 'AbortError');
 
 function audioGraph(audio) {
+  if (globalThis.DimauMusicVisuals) return globalThis.DimauMusicVisuals.audioGraph(audio);
   let graph = AUDIO_GRAPHS.get(audio);
   if (!graph) {
     const AudioContextClass = globalThis.AudioContext || globalThis.webkitAudioContext;
@@ -307,6 +308,11 @@ export class LyricRenderer {
       ctx.stroke();
     }
     ctx.restore();
+    if (settings.visuals?.enabled && globalThis.DimauMusicVisuals) {
+      ctx.save(); ctx.globalAlpha = .35;
+      globalThis.DimauMusicVisuals.draw(ctx, w, h, settings.visuals, this._visualState ||= {}, globalThis.DimauMusicVisuals.sample(audio), false);
+      ctx.restore();
+    }
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'left';
     ctx.fillStyle = theme.accent;
