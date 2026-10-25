@@ -1,3 +1,9 @@
+## 25 October 2026 — App companion installation
+
+Owner resumed the portfolio companion rollout with “do it”. Added byte-identical original Dimau Companion v1.0.1 assets and app-specific entry points from the shared platform standard. Local task guides, movable characters, appearance settings and read-aloud are available without a model provider. No account, payment, private-record or provider access is added. Open-ended AI remains disconnected unless a host explicitly supplies its existing service; held assistant pilots remain unchanged.
+
+Validation: shared package's 12 tests pass; entry changes preserve original source outside the loader insertion. Host build/deployment and rendered results are tracked on this change's GitHub revision, not claimed by this source entry. Direct GitHub/Vercel execution is authorised by the current owner request; authenticated Ops memory, continuity, task and checkpoint operations remain unavailable, so no such receipts are claimed. Existing unrelated revision branches and holds are preserved. Next: verify the exact hosted companion and record the actual result.
+
 ## 2026-10-25 — Shared audio-reactive music visuals (review revision)
 
 Owner asks to research the first ten music visualiser search pages and build selected features into Sota Kece, the shared player, Sere and Dimau Studios. Add an original shared Canvas/Web Audio engine: spectrum with peak caps, waveform, halo, layered ocean waves; four palettes; intensity; fullscreen; gesture-only activation; low-data, visibility and reduced-motion controls. Studios/Sere include bounded audio-backed WebM capture, and Sere reuses the same source for lyric-video export. Current artwork, songs/catalogue, source credits, accounts/storage and unrelated saved revisions are preserved. Public Maps exposes this as an optional disclosure within music, keeping its ordinary interface simple.
