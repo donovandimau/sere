@@ -1,3 +1,9 @@
+## 2026-10-25 — Shared audio-reactive music visuals (review revision)
+
+Owner asks to research the first ten music visualiser search pages and build selected features into Sota Kece, the shared player, Sere and Dimau Studios. Add an original shared Canvas/Web Audio engine: spectrum with peak caps, waveform, halo, layered ocean waves; four palettes; intensity; fullscreen; gesture-only activation; low-data, visibility and reduced-motion controls. Studios/Sere include bounded audio-backed WebM capture, and Sere reuses the same source for lyric-video export. Current artwork, songs/catalogue, source credits, accounts/storage and unrelated saved revisions are preserved. Public Maps exposes this as an optional disclosure within music, keeping its ordinary interface simple.
+
+Source/implementation, 100-result screening, actual checks and limitations: `docs/MUSIC_VISUALISERS_2026-10-25.md`. Focused media-graph checks and real local Chromium playback/export/390px checks pass. Exact remote CI and preview receipts belong to the current scoped PR; no production publication or authenticated Ops receipt is pre-claimed. Existing review holds remain. Next: finish exact-head hosted checks and review the working candidate.
+
 # Sere project state — 24 October 2026
 
 Current amendment: explicit Lyric video / Just the lyrics modes, editable automatic transcription and plain-text copy/TXT download. Text exports do not require video timing; both modes retain the same audio, words and timing. Resumed saved PR2 candidate `e708c6de950091598059d88a7d23e02f49a41265` on task726 lease2. Production publication remains held pending exact owner approval; production is `68099fac871582b85877143b2c8e539cde8fcb72`.
