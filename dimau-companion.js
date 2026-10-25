@@ -1,10 +1,9 @@
-/* Dimau Companion v1.0.1 — original Dimau code. See companion/README.md. */
+/* Dimau Companion v1.0.2 — original Dimau code. See companion/README.md. */
 (() => {
 'use strict';
 const currentScript = document.currentScript;
 if (window.DimauCompanion) return;
 const AVATARS = ['turtle', 'bird', 'lantern', 'dove', 'headphones', 'robot', 'ray', 'seed'];
-const STATES = ['idle', 'working', 'success', 'error'];
 
 function clampPosition(x, y, width, height, size = 76) {
   const finite = (value, fallback) => Number.isFinite(value) ? value : fallback;
@@ -284,8 +283,8 @@ class CompanionElement extends HTMLElement {
       this.applyPreferences(); this.persist();
     });
     on(this.ui['calm-choice'], 'change', () => { this.prefs.calm = this.ui['calm-choice'].checked; this.applyPreferences(); this.persist(); });
-    on(this.shadowRoot.querySelector('form'), 'submit', e => { e.preventDefault(); this.submit(); });
-    on(this.ui.question, 'keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); this.submit(); } });
+    on(this.shadowRoot.querySelector('form'), 'submit', e => { e.preventDefault(); void this.submit(); });
+    on(this.ui.question, 'keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); void this.submit(); } });
     on(this.shadowRoot, 'keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); this.close(); } });
     on(this.ui.stop, 'click', () => this.cancel());
     on(this.ui.clear, 'click', () => {
@@ -429,7 +428,7 @@ class CompanionElement extends HTMLElement {
     speechSynthesis.speak(this.utterance);
   }
   stopSpeech() { if (this.utterance) window.speechSynthesis?.cancel(); this.utterance = null; this.removeAttribute('data-speaking'); }
-  toggle() { this.ui.panel.hidden ? this.open() : this.close(); }
+  toggle() { if (this.ui.panel.hidden) this.open(); else this.close(); }
   open() {
     if (this.disposed) return;
     this.show(); this.ui.panel.hidden = false; this.ui.bubble.setAttribute('aria-expanded', 'true');
@@ -462,7 +461,7 @@ function mount(options = {}) {
 function get(appId) { return instances.get(appId); }
 
 const assetBase = currentScript?.src || document.baseURI;
-window.DimauCompanion = { version:'1.0.1', profiles, createTransport, get, mount: options => mount({ assetBase, ...options }) };
+window.DimauCompanion = { version:'1.0.2', profiles, createTransport, get, mount: options => mount({ assetBase, ...options }) };
 const autoApp = currentScript?.dataset.app;
 if (autoApp && (window.self === window.top || currentScript?.dataset.companionFrame === 'allow')) { const start = () => window.DimauCompanion.mount({ appId:autoApp }); if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start(); }
 })();
