@@ -21,3 +21,8 @@
 Added the canonical dependency-free `dimau-connect.js` from Dimau Platform Standard and optional Connect entry points across this app's visitor screens. The launcher opens Sota Kece's shared communications hub for existing member-authorized groups, chat, task boards and deliberately opened external call invitations. It sends only this app's public slug and selected view; it does not forward accounts, tokens, private app records, Ops messages, camera or microphone access. Sota Kece sign-in remains separate, and existing app-specific community features are preserved.
 
 The launcher and same-origin CSS are copied byte-for-byte from the shared master; existing CSP and permissions policies are unchanged. Sota Kece is for ages 16 and over, and the launcher displays that notice before opening the hub. Syntax, entry-point wiring and public build inclusion are checked; hosted multiuser/call verification is not claimed. This is a review candidate; all existing project and revision publication holds remain in force. Next: review the central hub and this exact preview before normal release checks/publication.
+
+
+## 25 October 2026 — Connect control clearance and lint compatibility
+
+Re-synced the canonical shared launcher assets after portfolio verification. Modern declarations and optional catch binding satisfy the existing lint policy; the pointer-transparent host and higher 88px desktop / 96px phone clearance preserve existing bottom controls. Same-origin external CSS, age-16+ notice, deliberate navigation and private-data boundaries remain. The canonical syntax and eight launcher tests pass; exact hosted checks are recorded on this revision. The existing unrelated candidate remains on its explicit publication hold.

@@ -6,14 +6,14 @@
   'use strict';
   if (window.DimauConnect) return;
 
-  var script = document.currentScript;
-  var requestedApp = script && script.getAttribute('data-app') || 'dimau';
-  var app = /^[a-z0-9][a-z0-9-]{0,63}$/.test(requestedApp) ? requestedApp : 'dimau';
-  var label = String(script && script.getAttribute('data-label') || 'this app').trim().slice(0, 80) || 'this app';
-  var triggerOnly = !!(script && script.getAttribute('data-trigger-only') === 'true');
-  var host, root, panel, toggle, close, previousFocus;
-  var open = false;
-  var options = [
+  const script = document.currentScript;
+  const requestedApp = script && script.getAttribute('data-app') || 'dimau';
+  const app = /^[a-z0-9][a-z0-9-]{0,63}$/.test(requestedApp) ? requestedApp : 'dimau';
+  const label = String(script && script.getAttribute('data-label') || 'this app').trim().slice(0, 80) || 'this app';
+  const triggerOnly = !!(script && script.getAttribute('data-trigger-only') === 'true');
+  let host, root, panel, toggle, close, previousFocus;
+  let open = false;
+  const options = [
     ['chat', 'Chat', 'Continue a conversation'],
     ['groups', 'Groups', 'Meet with your community'],
     ['boards', 'Boards', 'Share updates and ideas'],
@@ -21,13 +21,13 @@
   ];
 
   function element(tag, text) {
-    var node = document.createElement(tag);
+    const node = document.createElement(tag);
     if (text != null) node.textContent = text;
     return node;
   }
 
   function hubURL(view) {
-    var selected = options.some(function (entry) { return entry[0] === view; }) ? view : 'chat';
+    const selected = options.some(function (entry) { return entry[0] === view; }) ? view : 'chat';
     // No current-page URL, personal data, fragments or arbitrary destinations.
     return 'https://sotakece.com/communications.html?app=' + encodeURIComponent(app) + '&view=' + selected;
   }
@@ -35,12 +35,12 @@
   function stylesheetURL() {
     // The copied stylesheet is always local. Ignore third-party script origins
     // and configuration attributes; strict style-src 'self' remains sufficient.
-    var fallback = new URL('/dimau-connect.css', window.location.origin).href;
+    const fallback = new URL('/dimau-connect.css', window.location.origin).href;
     try {
-      var scriptURL = new URL(script && script.src || '', window.location.href);
+      const scriptURL = new URL(script && script.src || '', window.location.href);
       if (!script || !script.src || scriptURL.origin !== window.location.origin) return fallback;
       return new URL('./dimau-connect.css', scriptURL).href;
-    } catch (error) { return fallback; }
+    } catch { return fallback; }
   }
 
   function setOpen(value, opener, restoreFocus) {
@@ -63,7 +63,7 @@
     host.setAttribute('data-private', '');
     if (triggerOnly) host.setAttribute('data-trigger-only', '');
     root = host.attachShadow({ mode: 'open' });
-    var stylesheet = element('link');
+    const stylesheet = element('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = stylesheetURL();
     root.appendChild(stylesheet);
@@ -75,9 +75,9 @@
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-modal', 'false');
     panel.setAttribute('aria-labelledby', 'connect-title');
-    var heading = element('div');
+    const heading = element('div');
     heading.className = 'heading';
-    var title = element('h2', 'Connect');
+    const title = element('h2', 'Connect');
     title.id = 'connect-title';
     heading.appendChild(title);
     close = element('button', '×');
@@ -88,11 +88,11 @@
     heading.appendChild(close);
     panel.appendChild(heading);
     panel.appendChild(element('p', 'Open the shared Sota Kece community for ' + label + '.'));
-    var links = element('nav');
+    const links = element('nav');
     links.className = 'links';
     links.setAttribute('aria-label', 'Community tools');
     options.forEach(function (entry) {
-      var link = element('a');
+      const link = element('a');
       link.href = hubURL(entry[0]);
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
@@ -102,7 +102,7 @@
       links.appendChild(link);
     });
     panel.appendChild(links);
-    var privacy = element('p', 'Opens in a new tab. Sota Kece is for ages 16 and over. Sign in there to use shared groups. Your app account and private records are not sent. Camera and microphone stay off until you choose to join a call.');
+    const privacy = element('p', 'Opens in a new tab. Sota Kece is for ages 16 and over. Sign in there to use shared groups. Your app account and private records are not sent. Camera and microphone stay off until you choose to join a call.');
     privacy.className = 'privacy';
     panel.appendChild(privacy);
     root.appendChild(panel);
@@ -113,7 +113,7 @@
     toggle.setAttribute('aria-controls', panel.id);
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-haspopup', 'dialog');
-    var symbol = element('span', '◌');
+    const symbol = element('span', '◌');
     symbol.className = 'symbol';
     symbol.setAttribute('aria-hidden', 'true');
     toggle.appendChild(symbol);
@@ -132,7 +132,7 @@
       if (open && event.composedPath().indexOf(host) === -1 && !(event.target.closest && event.target.closest('[data-dimau-connect]'))) setOpen(false);
     });
     document.addEventListener('click', function (event) {
-      var trigger = event.target.closest && event.target.closest('[data-dimau-connect]');
+      const trigger = event.target.closest && event.target.closest('[data-dimau-connect]');
       if (!trigger) return;
       event.preventDefault();
       setOpen(!open, trigger, true);
