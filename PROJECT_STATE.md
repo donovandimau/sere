@@ -1,3 +1,9 @@
+## 26 October 2026 — Optional shared public music
+
+Added a native public music entry to the existing lyrics and local studio headers, with reserved responsive space and the unchanged local shared-player package. The validated central catalogue loads when Music is opened; audio starts only from an explicit Play or track choice. Local uploads, transcription, source-recording selection, lyrics, per-track timing and video export are unchanged and remain separate from the public player. No project audio or text is uploaded or included in the public catalogue. The existing non-draft premium discovery revision remains a separate branch.
+
+Source-preservation and frozen-package checks pass locally. Existing static hosting serves the six local assets; public streams require network. Full app/browser and publication checks remain with the release pipeline.
+
 ## 25 October 2026 — Audio and video call entry points
 
 Owner requested the complete shared calling rollout, including video chat. This isolated revision starts from current main and adds only the shared Connect v2 entry points: audio and video route to the Sota communications hub with an app slug and fixed call mode. App accounts, private records, page URLs and tokens are not forwarded; the launcher does not start camera/microphone capture. Existing unrelated saved revisions and holds remain untouched.
