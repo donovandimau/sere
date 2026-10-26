@@ -9,3 +9,6 @@ footer{text-align:center;padding:1rem;font-size:.9rem}
 header nav a{color:#fff}header nav a:focus{outline-color:#fff}.studio-link{display:inline-block;background:var(--teal);color:#fff;border-radius:.45rem;padding:.5rem .8rem;text-decoration:none}.catalogue-card{border-left-color:var(--teal);padding:.8rem 1rem}.catalogue-card h3{margin:0}.catalogue-card p{margin:.35rem 0;font-size:.88rem}#catalogue{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.75rem}#catalogue article{margin:0}
 .catalogue-pages{display:flex;gap:.75rem;align-items:center;margin:1rem 0;font-size:.85rem}.catalogue-pages button{font:inherit;padding:.4rem .7rem;border:1px solid var(--teal);border-radius:.35rem;background:#fff;color:var(--ink);cursor:pointer}.catalogue-pages button:disabled{opacity:.45;cursor:default}
 
+
+/* Keep the optional public music entry beside native lyrics navigation. */
+.shared-music-header-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
