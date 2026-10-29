@@ -26,3 +26,10 @@ The launcher and same-origin CSS are copied byte-for-byte from the shared master
 ## 25 October 2026 — Connect control clearance and lint compatibility
 
 Re-synced the canonical shared launcher assets after portfolio verification. Modern declarations and optional catch binding satisfy the existing lint policy; the pointer-transparent host and higher 88px desktop / 96px phone clearance preserve existing bottom controls. Same-origin external CSS, age-16+ notice, deliberate navigation and private-data boundaries remain. The canonical syntax and eight launcher tests pass; exact hosted checks are recorded on this revision. The existing unrelated candidate remains on its explicit publication hold.
+
+
+## 29 October 2026 — Preview discovery action
+
+The existing held PR #3 now uses the actual saved collection for its hero action. A new visitor opens Available to play; a visitor with valid saved song IDs opens their collection. Both actions clear a stale search, move focus to the selected filter and preserve deliberate, user-started audio. The main action adapts when the saved collection changes. No new activity tracking, song data, rights policy or recording changes.
+
+This is a preview-only amendment. The existing production hold, noindex directive and design-preview notice remain in force. Do not merge or publish this candidate without resolving the explicit hold through the authorized owner workflow.

@@ -21,7 +21,10 @@
   const isAvailable = song => song.id === original.id;
   const rights = song => window.SERE_RIGHTS?.[song.id] || {status:'pending',note:'Rights evidence has not been recorded for this material.'};
   const notify = text => { $('toast').textContent = text; $('toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('show'), 3200); };
-  function updateSavedCount() { $('saved-count').textContent = saved.size; }
+  function updateSavedCount() {
+    $('saved-count').textContent = saved.size;
+    $('hero-discover').innerHTML = `${saved.size ? 'Open your collection' : 'Explore available music'} <span aria-hidden="true">↗</span>`;
+  }
   function saveSong(id) {
     if (saved.has(id)) saved.delete(id); else saved.add(id);
     let persistent = true;
@@ -90,7 +93,14 @@
     }
     if (button.id === 'dialog-play') { closeSong(); toggleAudio(true); }
   });
-  $('saved-nav').addEventListener('click', () => { $('q').value = ''; setFilter('saved'); $('discover').scrollIntoView({behavior:reduced.matches ? 'instant' : 'smooth'}); document.querySelector('[data-filter="saved"]').focus({preventScroll:true}); });
+  function showDiscovery(value) {
+    $('q').value = '';
+    setFilter(value);
+    $('discover').scrollIntoView({behavior:reduced.matches ? 'instant' : 'smooth'});
+    document.querySelector(`[data-filter="${value}"]`).focus({preventScroll:true});
+  }
+  $('saved-nav').addEventListener('click', () => showDiscovery('saved'));
+  $('hero-discover').addEventListener('click', event => { event.preventDefault(); showDiscovery(saved.size ? 'saved' : 'available'); });
   $('q').addEventListener('input', render);
   $('clear-search').addEventListener('click', () => { $('q').value = ''; render(); $('q').focus(); });
   $('sort').addEventListener('change', render);
@@ -167,3 +177,4 @@
   updateSavedCount(); render(); applyMotion();
   if (records.some(s => s.id === location.hash.slice(1))) openSong(location.hash.slice(1));
 })();
+

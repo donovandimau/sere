@@ -6,7 +6,7 @@ const cp = require('node:child_process');
 const zlib = require('node:zlib');
 const root = require('node:path').resolve(__dirname,'..');
 const read = p => fs.readFileSync(`${root}/${p}`,'utf8');
-function app({storageError=false,hash=''}={}) {
+function app({storageError=false,hash='',storedIds=[]}={}) {
   const nodes = new Map(), events = {};
   class El {
     constructor(id) { this.id=id; this.value=''; this.hidden=false; this.open=false; this.paused=true; this.ended=false; this.duration=23.88; this.currentTime=0; this.listeners={}; this.dataset={}; this.attrs={}; this.classList={add(){},remove(){},toggle(){},contains(){return false;}}; this.tagName='BUTTON'; this.isConnected=true; }
@@ -26,7 +26,7 @@ function app({storageError=false,hash=''}={}) {
   const document={getElementById:get,body:new El('body'),activeElement:new El('body'),hidden:false,addEventListener(e,f){events[e]=f;},querySelectorAll(s){return s==='[data-filter]'?filters:[];},querySelector(s){return filters.find(f=>s.includes(`"${f.dataset.filter}"`));}};
   const location={hash,pathname:'/',search:''};
   const history={replaceState(_,__,url){location.hash=url.startsWith('#')?url:'';}};
-  const context={document,location,history,URL,console,Uint8Array,Set,Map,Number,String,JSON,Math,requestAnimationFrame:()=>1,cancelAnimationFrame(){},setTimeout:()=>1,clearTimeout(){},matchMedia:()=>({matches:false,addEventListener(){}}),localStorage:{getItem(){if(storageError)throw Error();return null;},setItem(){if(storageError)throw Error();}}};
+  const context={document,location,history,URL,console,Uint8Array,Set,Map,Number,String,JSON,Math,requestAnimationFrame:()=>1,cancelAnimationFrame(){},setTimeout:()=>1,clearTimeout(){},matchMedia:()=>({matches:false,addEventListener(){}}),localStorage:{getItem(){if(storageError)throw Error();return JSON.stringify(storedIds);},setItem(){if(storageError)throw Error();}}};
   context.window=context; context.addEventListener=()=>{}; vm.createContext(context);
   for(const p of ['songs.js','rights.js','app.js']) vm.runInContext(read(p),context);
   function click(dataset={},id='') { const b=new El(id);b.dataset=dataset; events.click({target:{closest:()=>b}}); }
@@ -90,4 +90,24 @@ test('bundled original MP3 exists, has audio, and is below 300 KB',()=>{
   const p=`${root}/assets/lagoon-01.mp3`;assert.ok(fs.statSync(p).size<300000);
   const info=JSON.parse(cp.execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_type,sample_rate','-of','json',p]));
   assert.ok(+info.format.duration>23);assert.ok(info.streams.some(s=>s.codec_type==='audio'));
+});
+
+
+test('new visitor hero opens playable music, clears old search and never autoplays',()=>{
+  const a=app();assert.match(a.get('hero-discover').innerHTML,/Explore available music/);
+  a.get('q').value='no match';a.get('q').listeners.input();
+  let prevented=false;a.get('hero-discover').listeners.click({preventDefault(){prevented=true;}});
+  assert.equal(prevented,true);assert.equal(a.get('q').value,'');
+  assert.equal(a.get('count').textContent,'1 song to explore');
+  assert.match(a.get('songs').innerHTML,/Lagoon 01/);assert.doesNotMatch(a.get('songs').innerHTML,/Rights pending/);
+  assert.equal(a.get('audio').paused,true);assert.equal(a.get('song-dialog').open,false);
+});
+test('returning hero uses only actual saved IDs and adapts when the collection is emptied',()=>{
+  const a=app({storedIds:['isa-lei','unknown-song']});
+  assert.equal(a.get('saved-count').textContent,1);assert.match(a.get('hero-discover').innerHTML,/Open your collection/);
+  a.get('q').value='no match';a.get('hero-discover').listeners.click({preventDefault(){}});
+  assert.equal(a.get('q').value,'');assert.equal(a.get('count').textContent,'1 song saved');
+  assert.match(a.get('songs').innerHTML,/Isa Lei/);assert.equal(a.get('audio').paused,true);
+  a.click({save:'isa-lei'});assert.equal(a.get('saved-count').textContent,0);
+  assert.match(a.get('hero-discover').innerHTML,/Explore available music/);
 });
