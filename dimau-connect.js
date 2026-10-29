@@ -1,4 +1,4 @@
-/* Dimau Connect v2 — original dependency-free communications launcher.
+/* Dimau Connect v2.1 — original dependency-free communications launcher.
  * Canonical copy: dimau-platform-standard/communications/dimau-connect.js.
  * This opens the Sota Kece hub; it never forwards account data or starts calls.
  */
@@ -27,6 +27,12 @@
     return node;
   }
 
+  function activeElement() {
+    let focused = document.activeElement;
+    while (focused && focused.shadowRoot && focused.shadowRoot.activeElement) focused = focused.shadowRoot.activeElement;
+    return focused;
+  }
+
   function hubURL(view, mode) {
     const selected = options.some(function (entry) { return entry[0] === view; }) ? view : 'chat';
     // No current-page URL, personal data, fragments or arbitrary destinations.
@@ -47,7 +53,7 @@
 
   function setOpen(value, opener, restoreFocus) {
     if (!panel) return;
-    if (value && !open) previousFocus = opener || document.activeElement;
+    if (value && !open) previousFocus = opener || activeElement();
     open = value;
     panel.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
@@ -115,23 +121,38 @@
     toggle.setAttribute('aria-controls', panel.id);
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-haspopup', 'dialog');
+    toggle.setAttribute('aria-label', 'Connect: chat, groups, voice or video call');
+    toggle.title = 'Connect';
     const symbol = element('span', '◌');
     symbol.className = 'symbol';
     symbol.setAttribute('aria-hidden', 'true');
     toggle.appendChild(symbol);
-    toggle.appendChild(element('span', 'Connect'));
+    const toggleLabel = element('span', 'Connect');
+    toggleLabel.className = 'sr-only';
+    toggle.appendChild(toggleLabel);
     toggle.addEventListener('click', function () { setOpen(!open, toggle, true); });
     root.appendChild(toggle);
     document.body.appendChild(host);
 
     document.addEventListener('keydown', function (event) {
-      if (open && event.key === 'Escape') {
+      if (open && event.key === 'Escape' && !event.defaultPrevented) {
         event.preventDefault();
         setOpen(false, null, true);
       }
     });
     document.addEventListener('pointerdown', function (event) {
       if (open && event.composedPath().indexOf(host) === -1 && !(event.target.closest && event.target.closest('[data-dimau-connect]'))) setOpen(false);
+    });
+    document.addEventListener('focusin', function (event) {
+      if (open && event.composedPath().indexOf(host) === -1 && !(event.target.closest && event.target.closest('[data-dimau-connect]'))) setOpen(false);
+    });
+    links.addEventListener('keydown', function (event) {
+      if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+      const items = Array.from(links.querySelectorAll('a'));
+      const current = items.indexOf(root.activeElement);
+      if (current < 0) return;
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+      event.preventDefault(); items[next].focus();
     });
     document.addEventListener('click', function (event) {
       const trigger = event.target.closest && event.target.closest('[data-dimau-connect]');
@@ -142,11 +163,12 @@
   }
 
   window.DimauConnect = Object.freeze({
-    version: '2.0.0',
-    open: function () { start(); setOpen(true, document.activeElement); },
+    version: '2.1.0',
+    open: function () { start(); setOpen(true, activeElement()); },
     close: function () { setOpen(false, null, true); },
     hubURL: hubURL
   });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
   else start();
 })();
+
