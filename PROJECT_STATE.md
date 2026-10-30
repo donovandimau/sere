@@ -43,3 +43,8 @@ Previous approved baseline:
 - Canonical repository: `donovandimau/sere` (existing repository ID1431143213). Existing Vercel project ID: `prj_dK69PpFn8gKtMym8KW4TCgrODWoE`.
 - The separate historical repository and parked catalogue draft are preserved.
 
+
+
+##30October2026 — native identity and quiet parent endorsement
+
+Current owner all-apps branding preserves the existing Sere text wordmarks, catalogue, lyrics, focused studio and shared public music. Only the existing route footers gain the exact current Dimau owner artwork at20px with Part of Dimau, using scoped footer styling. No product art is invented; unrelated held PR3 remains closed unmerged with its branch/history intact. Exact reversible preparation passed;390/1440 hosted/provider verification is the technical publication guard.

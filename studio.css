@@ -8,3 +8,6 @@ main{max-width:1520px;padding:2.5rem clamp(1rem,4vw,4rem);margin:auto}.intro{dis
 
 /* Keep the timing table inside its panel on narrow screens. */
 .workspace > *, .panel {min-width:0}.table-scroll {max-width:100%}
+
+/* Quiet parent endorsement in the existing native footer. */
+[data-dimau-endorsement]{display:inline-flex;min-height:32px;align-items:center;gap:8px;font-size:12px;line-height:1.4;vertical-align:middle;color:inherit}[data-dimau-endorsement] img{display:block;width:20px;height:20px;max-width:none;object-fit:contain;flex:none;margin:0;border:0;box-shadow:none}
